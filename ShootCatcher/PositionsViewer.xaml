@@ -1,0 +1,71 @@
+﻿<Window x:Class="ShootCatcher.PositionsViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ShootCatcher.View"
+        mc:Ignorable="d"
+        Title="PositionsViewer" Height="450" Width="800" MaxWidth="800" MinWidth="500">
+
+    <Window.DataContext>
+        <vm:BotPositionView/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="Direction: "/>
+                <Label Content="{Binding Direction, UpdateSourceTrigger=PropertyChanged}"/>
+            </WrapPanel>
+            <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="Volume: "/>
+                <Label Content="{Binding Volume, UpdateSourceTrigger=PropertyChanged}"/>
+            </WrapPanel>
+            <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="Buffer: "/>
+                <Label Content="{Binding Buffer, UpdateSourceTrigger=PropertyChanged}"/>
+            </WrapPanel>
+            <WrapPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="SL: "/>
+                <Label Content="{Binding SL, UpdateSourceTrigger=PropertyChanged}"/>
+            </WrapPanel>
+            <WrapPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="TP: "/>
+                <Label Content="{Binding TP, UpdateSourceTrigger=PropertyChanged}"/>
+            </WrapPanel>
+
+            <Label Grid.Column="1" Content="{Binding Asset}" FontWeight="Bold" FontSize="25" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        </Grid>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Orders}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="100" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Order type" Width="100" DisplayMemberBinding="{Binding OrderType}"/>
+                    <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding Status}"/>
+                    <GridViewColumn Header="Direction" Width="100" DisplayMemberBinding="{Binding Direction}"/>
+                    <GridViewColumn Header="Price" Width="100" DisplayMemberBinding="{Binding Price}"/>
+                    <GridViewColumn Header="Filled volume" Width="100" DisplayMemberBinding="{Binding FilledVolume}"/>
+                    <GridViewColumn Header="Actual volume" Width="100" DisplayMemberBinding="{Binding ActualVolume}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

@@ -1,0 +1,99 @@
+﻿<Window x:Class="ShootCatcher.StratagySettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ShootCatcher.View"
+        mc:Ignorable="d"
+        Title="Stratagy Settings" Height="450" Width="400">
+    <Window.DataContext>
+        <vm:BotSettingsView/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <ListView ItemsSource="{Binding SelectedAssets}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Asset" DisplayMemberBinding="{Binding Asset}"/>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Delete" HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Command="{Binding DeleteAsset}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox ItemsSource="{Binding Futures}"
+                          SelectedItem="{Binding SelectedFuturs}"
+                          Margin="0,5,2,0"/>
+                    <Button Grid.Column="1" Content="Add new symbol"
+                        Margin="2,5,0,0" Command="{Binding AddAsset}"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <RadioButton Content="Long" GroupName="Direction" IsChecked="{Binding IsLong}"/>
+                    <RadioButton Content="Short" GroupName="Direction" Margin="10,0,0,0"/>
+                </WrapPanel>
+                <StackPanel Grid.Row="1">
+                    <Label Content="Volume:"/>
+                    <TextBox Text="{Binding Volume}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2">
+                    <Label Content="Buffer %:"/>
+                    <TextBox Text="{Binding Buffer}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="3">
+                    <Label Content="Distance %:"/>
+                    <TextBox Text="{Binding Distance}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="4">
+                    <Label Content="SL %:"/>
+                    <TextBox Text="{Binding SL}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="5">
+                    <Label Content="TP %:"/>
+                    <TextBox Text="{Binding TP}"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Button Content="Save" Grid.Row="1" Command="{Binding SaveChanges}"/>
+    </Grid>
+</Window>
